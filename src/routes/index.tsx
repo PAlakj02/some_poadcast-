@@ -1,24 +1,11 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from '@tanstack/react-router'
+import { ArrowRight, ArrowUpRight, Globe2, Headphones } from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import { EpisodeCard, EpisodeDetails } from '@/components/podcast/episode-card'
+import { episodes, podcastHead } from '@/lib/podcast'
+import hero from '@/assets/history-hero.jpg'
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
-export const Route = createFileRoute("/")({
-  component: Index,
-});
-
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
-function Index() {
-  return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
-  );
+export const Route = createFileRoute('/')({ head: () => podcastHead('Echoes of History — A World History Podcast', 'Explore the human story across ancient Egypt, India, Mesopotamia, Eurasia, and beyond. A world history podcast for curious minds.'), component: Home })
+function Home() {
+ return <main><section className="hero"><img src={hero} width={1920} height={1024} alt="A collection of ancient Egyptian, Mesopotamian, and Indian artifacts" className="hero-image" fetchPriority="high"/><div className="site-width hero-content rise-in"><p className="eyebrow flex items-center gap-3 text-gold"><span className="h-px w-7 bg-gold"/>The past is never far away</p><h1 className="hero-title">Echoes of<br/><em>History.</em></h1><p className="hero-copy">The people, places, and ideas that shaped our world.<br className="hidden md:block"/> A journey through history, one story at a time.</p><div className="hero-actions"><EpisodeDetails episode={episodes[0]}><Button variant="hero" size="lg"><Headphones/>Discover the latest episode</Button></EpisodeDetails><Button variant="heroOutline" size="lg" asChild><Link to="/episodes">All episodes <ArrowRight/></Link></Button></div><p className="hero-note"><Globe2 className="size-3.5"/>Across civilizations. Across continents. Across time.</p></div></section><section className="editorial-section site-width"><div className="mb-8 flex items-end justify-between gap-4"><div><p className="eyebrow mb-3 text-primary">Stories worth uncovering</p><h2 className="section-heading">Latest episodes</h2></div><Button variant="link" asChild className="h-auto px-0 text-xs"><Link to="/episodes">View all episodes <ArrowRight/></Link></Button></div><div className="grid grid-cols-1 gap-8 md:grid-cols-3">{episodes.slice(0,3).map(episode => <EpisodeCard key={episode.id} episode={episode}/>)}</div></section><section className="border-y bg-secondary"><div className="site-width flex flex-col items-start justify-between gap-8 py-12 md:flex-row md:items-center"><div className="max-w-xl"><p className="eyebrow mb-3 text-primary">History without borders</p><h2 className="section-heading">Different worlds.<br/>Remarkably human stories.</h2></div><div className="max-w-md"><p className="text-sm leading-7 text-muted-foreground">From the banks of the Nile to the cities of the Indus, from the first written words to the languages we speak today. We follow curiosity—not a single map or era.</p><Button variant="link" asChild className="mt-4 px-0 text-xs"><Link to="/about">The story behind the podcast <ArrowUpRight/></Link></Button></div></div></section><section className="editorial-section site-width"><p className="eyebrow mb-3 text-primary">Let curiosity be your compass</p><h2 className="section-heading mb-8">Explore the ancient world</h2><div className="region-grid">{[episodes[0],episodes[1],episodes[3],episodes[2]].map(episode => <Link key={episode.region} to="/episodes" search={{ region: episode.region }} className="region-item"><img src={episode.image} alt={`${episode.region} illustrative cover`} loading="lazy" width={1024} height={768}/><span className="region-label">{episode.region}<ArrowUpRight className="size-5"/></span></Link>)}</div></section></main>
 }
