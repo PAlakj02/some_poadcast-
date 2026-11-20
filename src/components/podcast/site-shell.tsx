@@ -1,12 +1,44 @@
 import { Link } from '@tanstack/react-router'
 import { useState } from 'react'
-import { ArrowUpRight, AudioLines, Menu, X } from 'lucide-react'
+import { Menu, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { VisitorCount } from '@/components/podcast/visitor-count'
+import { portfolio } from '@/lib/portfolio'
 
-function Brand() { return <span className="brand"><AudioLines className="brand-mark" strokeWidth={1.2}/><span className="brand-name">Echoes of History<span className="brand-caption">A world history podcast</span></span></span> }
+const tabs = [
+  { to: '/', label: 'Home' },
+  { to: '/research', label: 'Research' },
+  { to: '/podcast', label: 'Podcast' },
+] as const
+
+function Brand() { return <span className="portfolio-brand">{portfolio.name}<span>.</span></span> }
+
 export function SiteHeader() {
- const [open, setOpen] = useState(false)
- return <header className="site-header relative z-20"><div className="site-width flex h-full items-center justify-between gap-5"><Link to="/" aria-label="Echoes of History home"><Brand/></Link><nav aria-label="Main navigation" className="hidden items-center gap-9 md:flex"><Link to="/" activeOptions={{ exact:true }} className="nav-link" activeProps={{ className: 'nav-link active' }}>Home</Link><Link to="/about" className="nav-link" activeProps={{ className: 'nav-link active' }}>About</Link><Link to="/episodes" className="nav-link" activeProps={{ className: 'nav-link active' }}>Episodes</Link><Link to="/portfolio" className="nav-link" activeProps={{ className: 'nav-link active' }}>Portfolio</Link></nav><Button asChild className="hidden h-10 text-xs md:inline-flex"><Link to="/episodes">Explore episodes <ArrowUpRight/></Link></Button><Button variant="ghost" size="icon" className="md:hidden" aria-label={open ? 'Close navigation' : 'Open navigation'} aria-expanded={open} onClick={() => setOpen(!open)}>{open ? <X/> : <Menu/>}</Button></div>{open && <nav aria-label="Mobile navigation" className="absolute left-0 right-0 top-full flex flex-col gap-2 border-b bg-background px-5 py-4 shadow-sm">{(['/', '/about', '/episodes', '/portfolio'] as const).map((to,i) => <Link key={to} to={to} className="nav-link" onClick={() => setOpen(false)}>{['Home','About','Episodes','Portfolio'][i]}</Link>)}</nav>}</header>
+  const [open, setOpen] = useState(false)
+  return <header className="site-header sticky top-0 z-30 border-b">
+    <div className="site-width flex h-full items-center justify-between gap-5">
+      <Link to="/" aria-label={`${portfolio.name} home`}><Brand/></Link>
+      <nav aria-label="Main navigation" className="hidden items-center gap-9 md:flex">
+        {tabs.map(tab => <Link key={tab.to} to={tab.to} activeOptions={{ exact: tab.to === '/' }} className="nav-link" activeProps={{ className: 'nav-link active' }}>{tab.label}</Link>)}
+      </nav>
+      <Button variant="ghost" size="icon" className="md:hidden" aria-label={open ? 'Close navigation' : 'Open navigation'} aria-expanded={open} onClick={() => setOpen(!open)}>{open ? <X/> : <Menu/>}</Button>
+    </div>
+    {open && <nav aria-label="Mobile navigation" className="absolute left-0 right-0 top-full flex flex-col gap-2 border-b bg-background px-5 py-4 shadow-sm">
+      {tabs.map(tab => <Link key={tab.to} to={tab.to} activeOptions={{ exact: tab.to === '/' }} className="nav-link" activeProps={{ className: 'nav-link active' }} onClick={() => setOpen(false)}>{tab.label}</Link>)}
+    </nav>}
+  </header>
 }
-export function SiteFooter() { return <footer className="site-footer"><div className="site-width flex flex-col justify-between gap-7 md:flex-row md:items-center"><Link to="/"><Brand/></Link><p className="text-xs text-muted-foreground">Many civilizations. One shared human story.</p><div className="flex gap-6 text-xs text-muted-foreground"><Link to="/about">About the podcast</Link><Link to="/episodes">All episodes</Link><Link to="/portfolio">Shray’s portfolio</Link></div></div><div className="site-width mt-7 flex flex-wrap justify-between gap-3 border-t pt-5 text-[10px] text-muted-foreground"><span>© {new Date().getFullYear()} Echoes of History</span><VisitorCount/></div></footer> }
+
+export function SiteFooter() {
+  return <footer className="site-footer">
+    <div className="site-width flex flex-col justify-between gap-7 md:flex-row md:items-center">
+      <Link to="/"><Brand/></Link>
+      <p className="text-xs text-muted-foreground">{portfolio.tagline}</p>
+      <div className="flex gap-6 text-xs text-muted-foreground">{tabs.map(tab => <Link key={tab.to} to={tab.to} className="hover:text-primary">{tab.label}</Link>)}</div>
+    </div>
+    <div className="site-width mt-7 flex flex-wrap justify-between gap-3 border-t pt-5 text-[10px] text-muted-foreground">
+      <span>© {new Date().getFullYear()} {portfolio.name} · Echoes of History</span>
+      <VisitorCount/>
+    </div>
+  </footer>
+}

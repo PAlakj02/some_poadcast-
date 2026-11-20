@@ -4,7 +4,6 @@ import {
   Link,
   createRootRouteWithContext,
   useRouter,
-  useRouterState,
   HeadContent,
   Scripts,
   type ErrorComponentProps,
@@ -80,7 +79,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Echoes of History" },
+      { title: "Shray — Echoes of History" },
       { name: "description", content: "A world history podcast across civilizations, continents, and time." },
       { property: "og:title", content: "Echoes of History" },
       { property: "og:description", content: "A world history podcast across civilizations, continents, and time." },
@@ -120,15 +119,13 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
-  // The portfolio is a standalone one-page site with its own navigation and footer.
-  const standalone = useRouterState({ select: (state) => state.location.pathname === "/portfolio" });
 
   return (
     <QueryClientProvider client={queryClient}>
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      {!standalone && <SiteHeader />}
+      <SiteHeader />
       <Outlet />
-      {!standalone && <SiteFooter />}
+      <SiteFooter />
     </QueryClientProvider>
   );
 }

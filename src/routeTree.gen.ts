@@ -12,7 +12,9 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as EpisodesRouteImport } from './routes/episodes'
+import { Route as PodcastRouteImport } from './routes/podcast'
 import { Route as PortfolioRouteImport } from './routes/portfolio'
+import { Route as ResearchRouteImport } from './routes/research'
 import { Route as ShrayRouteImport } from './routes/shray'
 
 const IndexRoute = IndexRouteImport.update({
@@ -30,9 +32,19 @@ const EpisodesRoute = EpisodesRouteImport.update({
   path: '/episodes',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PodcastRoute = PodcastRouteImport.update({
+  id: '/podcast',
+  path: '/podcast',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PortfolioRoute = PortfolioRouteImport.update({
   id: '/portfolio',
   path: '/portfolio',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResearchRoute = ResearchRouteImport.update({
+  id: '/research',
+  path: '/research',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ShrayRoute = ShrayRouteImport.update({
@@ -45,14 +57,18 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/episodes': typeof EpisodesRoute
+  '/podcast': typeof PodcastRoute
   '/portfolio': typeof PortfolioRoute
+  '/research': typeof ResearchRoute
   '/shray': typeof ShrayRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/episodes': typeof EpisodesRoute
+  '/podcast': typeof PodcastRoute
   '/portfolio': typeof PortfolioRoute
+  '/research': typeof ResearchRoute
   '/shray': typeof ShrayRoute
 }
 export interface FileRoutesById {
@@ -60,22 +76,48 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/episodes': typeof EpisodesRoute
+  '/podcast': typeof PodcastRoute
   '/portfolio': typeof PortfolioRoute
+  '/research': typeof ResearchRoute
   '/shray': typeof ShrayRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/episodes' | '/portfolio' | '/shray'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/episodes'
+    | '/podcast'
+    | '/portfolio'
+    | '/research'
+    | '/shray'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/episodes' | '/portfolio' | '/shray'
-  id: '__root__' | '/' | '/about' | '/episodes' | '/portfolio' | '/shray'
+  to:
+    | '/'
+    | '/about'
+    | '/episodes'
+    | '/podcast'
+    | '/portfolio'
+    | '/research'
+    | '/shray'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/episodes'
+    | '/podcast'
+    | '/portfolio'
+    | '/research'
+    | '/shray'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   EpisodesRoute: typeof EpisodesRoute
+  PodcastRoute: typeof PodcastRoute
   PortfolioRoute: typeof PortfolioRoute
+  ResearchRoute: typeof ResearchRoute
   ShrayRoute: typeof ShrayRoute
 }
 
@@ -102,11 +144,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EpisodesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/podcast': {
+      id: '/podcast'
+      path: '/podcast'
+      fullPath: '/podcast'
+      preLoaderRoute: typeof PodcastRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/portfolio': {
       id: '/portfolio'
       path: '/portfolio'
       fullPath: '/portfolio'
       preLoaderRoute: typeof PortfolioRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/research': {
+      id: '/research'
+      path: '/research'
+      fullPath: '/research'
+      preLoaderRoute: typeof ResearchRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/shray': {
@@ -123,7 +179,9 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   EpisodesRoute: EpisodesRoute,
+  PodcastRoute: PodcastRoute,
   PortfolioRoute: PortfolioRoute,
+  ResearchRoute: ResearchRoute,
   ShrayRoute: ShrayRoute,
 }
 export const routeTree = rootRouteImport

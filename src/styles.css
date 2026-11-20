@@ -110,8 +110,10 @@
   .portfolio-monogram { width: 88px; height: 88px; border-radius: 999px; display: grid; place-items: center; font-family: var(--font-serif); font-size: 44px; color: var(--hero); background: var(--gold); }
   .portfolio-section { padding-block: 72px; scroll-margin-top: 68px; }
   .portfolio-card { border: 1px solid var(--border); border-radius: 6px; background: var(--card); padding: 24px; }
-  .portfolio-timeline { display: grid; gap: 28px; border-left: 1px solid var(--border); padding-left: 24px; }
-  .portfolio-timeline li { display: grid; grid-template-columns: auto 1fr; gap: 16px; }
+  .carousel-card { display: block; width: 100%; height: 100%; text-align: left; overflow: hidden; border: 1px solid var(--border); border-radius: 6px; background: var(--card); transition: border-color .2s, box-shadow .2s; }
+  .carousel-card:hover { border-color: var(--primary); box-shadow: 0 6px 24px -12px color-mix(in oklch, var(--foreground) 35%, transparent); }
+  .carousel-card:hover .episode-image { transform: scale(1.035); }
+  .carousel-card:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
   .rise-in { animation: rise-in .8s ease both; }
   @keyframes rise-in { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
   @media (max-width: 767px) {

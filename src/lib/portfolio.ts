@@ -1,14 +1,6 @@
 // Shray's portfolio content. Edit the text here — the page layout picks it up automatically.
 // Keep personal details (school, city, phone, personal email) off this public page.
 
-export const portfolioSections = [
-  { id: 'about', label: 'About' },
-  { id: 'interests', label: 'Interests' },
-  { id: 'podcast', label: 'Podcast' },
-  { id: 'projects', label: 'Projects' },
-  { id: 'achievements', label: 'Achievements' },
-] as const
-
 export const portfolio = {
   name: 'Shray',
   tagline: 'Young historian, storyteller, and host of Echoes of History.',
@@ -28,8 +20,11 @@ export const portfolio = {
     { title: 'Timeline of the ancient world', copy: 'A hand-drawn timeline linking events in Egypt, India, and Mesopotamia side by side.' },
     { title: 'Project placeholder', copy: 'Add another project here — a school project, a model, a piece of writing, or a video.' },
   ],
-  achievements: [
-    { year: '2026', title: 'Launched Echoes of History', copy: 'Recorded and published the first episodes of the podcast.' },
-    { year: '2026', title: 'Achievement placeholder', copy: 'Add a competition, award, certificate, or milestone here.' },
+  // Research shown on the Research tab. Replace the placeholders with Shray's real work.
+  research: [
+    { topic: 'Ancient Egypt', title: 'Everyday life along the Nile', copy: 'What farmers, scribes, and craftspeople ate, wore, and believed — beyond the pyramids.', status: 'In progress' },
+    { topic: 'Indus Valley', title: 'Why can’t we read the Indus script?', copy: 'Looking at the seals, the symbols, and the ideas people have had about what they mean.', status: 'In progress' },
+    { topic: 'Languages', title: 'Tracing the Proto-Indo-Europeans', copy: 'How words shared across Europe and India point back to one ancient language.', status: 'Notes' },
+    { topic: 'Placeholder', title: 'Add a research topic', copy: 'Add a school report, an essay, or a question Shray is investigating, with a link if there is one.', status: 'Idea' },
   ],
 }

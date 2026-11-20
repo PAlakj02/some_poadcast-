@@ -119,6 +119,6 @@ function Uploader({ session }: { session: Session }) {
 
     <h2 className="section-heading mb-6 mt-14">On the website now</h2>
     <RecordingsList onDelete={remove} emptyText="Nothing added yet — your first recording will show up here."/>
-    <p className="mt-10 text-xs text-muted-foreground"><Link to="/portfolio" hash="podcast" className="text-primary hover:underline">See how visitors see it →</Link></p>
+    <p className="mt-10 text-xs text-muted-foreground"><Link to="/podcast" hash="listen" className="text-primary hover:underline">See how visitors see it →</Link></p>
   </>
 }

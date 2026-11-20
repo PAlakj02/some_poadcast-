@@ -1,16 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router'
-import { Search, X } from 'lucide-react'
-import { useState } from 'react'
-import { Button } from '@/components/ui/button'
-import { EpisodeCard } from '@/components/podcast/episode-card'
-import { RecordingsList } from '@/components/podcast/recordings-list'
-import { filterEpisodes, regions, podcastHead } from '@/lib/podcast'
-export const Route = createFileRoute('/episodes')({ validateSearch: (search: Record<string, unknown>): { region?: string | undefined } => ({ region: typeof search['region'] === 'string' ? search['region'] : undefined }), head: () => podcastHead('Episodes — Echoes of History', 'Browse history podcast episodes across Egypt, India, Mesopotamia, and Eurasia. Find your next story by region or topic.'), component: Episodes })
-function Episodes() {
- const {region} = Route.useSearch()
- const navigate = Route.useNavigate()
- const selected = regions.some(item => item === region) ? region ?? 'All regions' : 'All regions'
- const [query,setQuery] = useState('')
- const results = filterEpisodes(selected,query)
- return <main><section className="site-width page-intro"><p className="eyebrow text-primary">The episode collection</p><h1 className="page-title">Every story is a new beginning.</h1><p className="max-w-xl text-sm leading-7 text-muted-foreground">Follow a civilization, explore a question, or see where curiosity takes you.</p></section><section className="site-width editorial-section border-b"><p className="eyebrow mb-3 text-primary">Hosted by Shray</p><h2 className="section-heading mb-8">Latest recordings</h2><RecordingsList/></section><section className="site-width editorial-section"><div className="mb-9 flex flex-col justify-between gap-5 lg:flex-row lg:items-center"><div aria-label="Filter by region" className="flex flex-wrap gap-2">{regions.map(item => <Button key={item} variant={item === selected ? 'default' : 'outline'} className="h-9 text-xs" aria-pressed={item === selected} onClick={() => navigate({search: {region: item === 'All regions' ? undefined : item}})}>{item}</Button>)}</div><div className="relative w-full lg:w-72"><Search className="pointer-events-none absolute left-3 top-3 size-4 text-muted-foreground"/><input aria-label="Search episodes" placeholder="Search episodes…" value={query} onChange={event => setQuery(event.target.value)} className="h-10 w-full rounded-md border bg-card pl-10 pr-10 text-sm outline-none focus:ring-2 focus:ring-ring"/>{query && <Button variant="ghost" size="icon" aria-label="Clear search" className="absolute right-0.5 top-0.5" onClick={() => setQuery('')}><X/></Button>}</div></div><p className="mb-7 text-xs text-muted-foreground" aria-live="polite">{results.length} {results.length === 1 ? 'episode' : 'episodes'}{selected !== 'All regions' ? ` in ${selected}` : ' to explore'}</p>{results.length ? <div className="grid grid-cols-1 gap-x-8 gap-y-12 md:grid-cols-2 lg:grid-cols-3">{results.map(episode => <EpisodeCard key={episode.id} episode={episode}/>)}</div> : <div className="py-20 text-center"><h2 className="text-3xl">No stories found just yet.</h2><p className="mt-3 text-sm text-muted-foreground">Try a different topic or explore all regions.</p><Button variant="outline" className="mt-5" onClick={() => {setQuery('');navigate({search:{region:undefined}})}}>Reset filters</Button></div>}<p className="mt-12 border-t pt-6 text-xs leading-6 text-muted-foreground">Sample episode collection · Titles, durations, and artwork are illustrative. Real recordings haven’t been added yet.</p></section></main>
-}
+import { createFileRoute, redirect } from '@tanstack/react-router'
+
+// Old address, kept so existing links still work.
+export const Route = createFileRoute('/episodes')({ beforeLoad: () => { throw redirect({ to: '/podcast', replace: true }) } })
