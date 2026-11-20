@@ -93,6 +93,25 @@
   .page-intro { padding: 65px 0 46px; border-bottom: 1px solid var(--border); }
   .page-title { font-size: 58px; line-height: 1.15; margin: 15px 0; }
   .site-footer { border-top: 1px solid var(--border); padding: 35px 0; }
+  .recording-item { border: 1px solid var(--border); border-radius: 6px; background: var(--card); padding: 22px 24px; }
+  .recording-player { display: block; width: 100%; height: 72px; margin-top: 16px; border: 0; border-radius: 4px; background: var(--secondary); }
+  .recordings-note { display: flex; gap: 10px; align-items: center; border: 1px dashed var(--border); border-radius: 6px; padding: 22px 24px; font-size: 13px; color: var(--muted-foreground); }
+  .studio-card { border: 1px solid var(--border); border-radius: 6px; background: var(--card); padding: 24px; }
+  .studio-steps { list-style: decimal; padding-left: 20px; margin: 28px 0 20px; font-size: 13px; line-height: 1.9; color: var(--muted-foreground); }
+  .portfolio-nav { position: sticky; top: 0; z-index: 30; height: 68px; background: color-mix(in oklch, var(--background) 92%, transparent); backdrop-filter: blur(8px); border-bottom: 1px solid var(--border); }
+  .portfolio-brand { font-family: var(--font-serif); font-size: 24px; flex-shrink: 0; }
+  .portfolio-brand span { color: var(--gold); }
+  .portfolio-links { display: flex; gap: 26px; margin-inline: auto; overflow-x: auto; scrollbar-width: none; }
+  .portfolio-links::-webkit-scrollbar { display: none; }
+  .portfolio-links .nav-link { white-space: nowrap; }
+  .portfolio-back { display: inline-flex; gap: 6px; align-items: center; flex-shrink: 0; font-size: 12px; color: var(--muted-foreground); }
+  .portfolio-back:hover { color: var(--primary); }
+  .portfolio-hero { background: var(--hero); color: var(--hero-foreground); padding: 84px 0 76px; scroll-margin-top: 68px; }
+  .portfolio-monogram { width: 88px; height: 88px; border-radius: 999px; display: grid; place-items: center; font-family: var(--font-serif); font-size: 44px; color: var(--hero); background: var(--gold); }
+  .portfolio-section { padding-block: 72px; scroll-margin-top: 68px; }
+  .portfolio-card { border: 1px solid var(--border); border-radius: 6px; background: var(--card); padding: 24px; }
+  .portfolio-timeline { display: grid; gap: 28px; border-left: 1px solid var(--border); padding-left: 24px; }
+  .portfolio-timeline li { display: grid; grid-template-columns: auto 1fr; gap: 16px; }
   .rise-in { animation: rise-in .8s ease both; }
   @keyframes rise-in { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
   @media (max-width: 767px) {
@@ -112,6 +131,13 @@
     .region-label { font-size: 20px; left: 14px; bottom: 12px; }
     .page-title { font-size: 43px; }
     .page-intro { padding: 42px 0 32px; }
+    .portfolio-nav { height: auto; padding-block: 12px; }
+    .portfolio-nav .site-width { flex-wrap: wrap; row-gap: 4px; }
+    .portfolio-links { order: 3; width: 100%; gap: 22px; }
+    .portfolio-back { margin-left: auto; }
+    .portfolio-hero { padding: 56px 0; }
+    .portfolio-section { padding-block: 48px; scroll-margin-top: 104px; }
+    .recording-item, .studio-card { padding: 18px; }
   }
   @media (prefers-reduced-motion: reduce) { .rise-in { animation: none; } *,*:before,*:after { transition: none !important; } }
 }

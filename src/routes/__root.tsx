@@ -4,6 +4,7 @@ import {
   Link,
   createRootRouteWithContext,
   useRouter,
+  useRouterState,
   HeadContent,
   Scripts,
   type ErrorComponentProps,
@@ -119,13 +120,15 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  // The portfolio is a standalone one-page site with its own navigation and footer.
+  const standalone = useRouterState({ select: (state) => state.location.pathname === "/portfolio" });
 
   return (
     <QueryClientProvider client={queryClient}>
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <SiteHeader />
+      {!standalone && <SiteHeader />}
       <Outlet />
-      <SiteFooter />
+      {!standalone && <SiteFooter />}
     </QueryClientProvider>
   );
 }
